@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title%}Piqoboo - Home{% endblock %}
+
+<!-- hero section -->
+{% block hero %}
+    <div class="hero-cta">
+            <div class="hero-title">
+                <p>Explore your favorite book &#128218;</p>
+                <h2>Get Your New <span>B</span>ook with the best price</h2>
+                <form method="get">
+                    <input type="search" placeholder="search books, authors and categories..." name="search" value=""/>
+                    <button type="search" class="search">search</button>
+                </form>
+            </div>
+            <div class="hero-img-cta">
+                <img src="{{url_for('static', filename='images/girl-removebg-preview.jpg')}}" width="300px" alt=""/>
+            </div>
+    </div>
+{% endblock %}
