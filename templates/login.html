@@ -3,11 +3,16 @@
 
 <!-- hero section -->
 {% block hero %}
+<div class="container">
    <h1>Welcome Back</h1>
-   <form method="post">
-      {{form.hidden_tag()}}
-      {{form.email.label(class="form-label")}} {{form.email(class="form-control")}}<br/>
-      {{form.password.label(class="form-label")}} {{form.password(class="form-control")}}<br/>
-      {{form.submit(class="btn btn-primary")}}
-  </form>
+   <div class="form-cta">
+      <form method="post">
+         {{form.hidden_tag()}}
+         {{form.email.label(class="form-label")}} {{form.email(class="form-control")}}<br/>
+         {{form.password.label(class="form-label")}} {{form.password(class="form-control")}}<br/>
+         {{form.submit(class="btn btn-primary")}}
+      </form>
+   </div>
+</div>
 {% endblock %}
+

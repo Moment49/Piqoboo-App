@@ -17,54 +17,54 @@ def index():
     return render_template('index.html')
 
 
-user_info = {}
 @app.route('/signUp', methods=['GET', 'POST'])
 def signUp():
-    name = None
-    email = None
+    form = RegisterForm() 
     password = None
     c_password = None
-    form = RegisterForm() 
     if form.validate_on_submit():
-        name = form.name.data
-        email = form.email.data
+        session['name'] = form.name.data
+        session['email'] = form.email.data
         password = form.password.data
         c_password = form.confirm_password.data
         if password == c_password:
-            flash("Password match")
-            # Push to the dictionary
-            form.name.data = ''
-            form.email.data = ''
-            form.password.data = ''
-            form.confirm_password.data = '' 
+            flash("Sign up successful")
+            session['password'] = password
+            session['confirm_password'] = c_password
+            return redirect(url_for('login'))   
         else:
             flash("password does not match")
-        
-             
-    return render_template('signUp.html', form=form)
+            return redirect(url_for('signUp'))
+    return render_template('signup.html', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if session.get('full_name'):    
-        if form.validate_on_submit():
-            email = form.email.data
-            password = form.password.data
-            if email in session['email'] and password in session['password']:
-                print("found")
-                return redirect(url_for('dashboard'))
-            else:
-                return redirect(url_for('signUp'))
-        return render_template('login.html', form=form)
-    else:
-        return redirect(url_for('signUp'))
+   email = None
+   password = None
+   form = LoginForm()
+   if form.validate_on_submit():
+       email = form.email.data
+       password = form.password.data
+       any_email = session.get('email')
+       any_password = session.get('password')
+       if email == any_email and password == any_password:
+           flash('Login Successful')
+           print(session['email'])
+           form.email.data = ''
+           form.password.data = ''
+           return redirect(url_for('dashboard'))
+       elif email != email or password != any_password:
+           flash('invalid email or password')
+           return redirect(url_for('login'))
+
+   return render_template('login.html', form=form)
 
 
 # dashboard route
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', name=session.get('name'))
 
    
 

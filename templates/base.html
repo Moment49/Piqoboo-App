@@ -18,15 +18,22 @@
                             <span>PIQOBOO</span>
                         </div>
                         <ul>
-                            <li><a href="{{url_for('index')}}">Home</a></li>
-                            <li><a href="#">Authors</a></li>
-                            <li><a href="#">Сategory</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="{{url_for('index')}}" class="nav_link active">Home</a></li>
+                            <li><a href="#"  class="nav_link">Authors</a></li>
+                            <li><a href="#"  class="nav_link">Сategory</a></li>
+                            <li><a href="#"   class="nav_link">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
                 
                 <div class="container">
+                    <!-- To be displayed in the based template-->
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-success alert-dismissible fade show flash_id shadow-lg" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close flash_btn" data-bs-dismiss="alert"  aria-label="Close"></button>
+                    </div> 
+                    {% endfor %}
                     {% block hero %}
                     {% endblock %}    
                 </div>
